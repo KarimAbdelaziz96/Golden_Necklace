@@ -15,10 +15,13 @@
 <img src="assets/images/Appicon.png" style="width:150px;" alt="App icon"/>
 <img src="assets/images/2.png" style="width:400px;" alt="العقد الذهبي"/>
 <img src="assets/images/3.png" style="width:400px;" alt="العقد الذهبي"/>
-<img src="assets/images/4.jpeg" style="width:250px;" alt="Home Screen"/>
-<img src="assets/images/5.jpeg" style="width:250px;" alt="Movie Screen"/>
-<img src="assets/images/6.jpeg" style="width:250px;" alt="Live Screen"/>
 
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <img src="assets/images/4.jpeg" style="width: 150px;" alt="Home Screen"/>
+    <img src="assets/images/5.jpeg" style="width: 150px;" alt="Movie Screen"/>
+    <img src="assets/images/6.jpeg" style="width: 150px;" alt="Live Screen"/>
+</div>
 - العقد الذهبي
 مشغل  IPTV
 **Android** و**iOS** يتميز بواجهة مستخدم عصرية بوضع بورتريه مصممة لتقديم أفضل تجربة للمستخدم.

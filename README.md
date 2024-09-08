@@ -15,6 +15,8 @@
 ### FireBase "com.goldennecklace.player"
 ### version: 1.0.1+1
 
+### APK 
+- **https://www.mediafire.com/file/89cig0m1vusar3l/Golden_Necklace.apk/file
 
 
 ### Privacy Policy for Golden Necklace

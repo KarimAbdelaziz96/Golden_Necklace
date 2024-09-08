@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1053690911021",
+    "project_id": "goldennecklace-7d09e",
+    "storage_bucket": "goldennecklace-7d09e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053690911021:android:a1818a6c8f060e140a1ba4",
+        "android_client_info": {
+          "package_name": "com.goldennecklace.player"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053690911021-aqs68cv0oj2rjo5v2kpblkim4otvmhht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFGlI9GvVI_anfJvdFwgSiyuXNUuzT9lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053690911021-aqs68cv0oj2rjo5v2kpblkim4otvmhht.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1053690911021-ec7arqoaehascj1blred4psd05ibbkip.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.goldennecklace.player"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,15 +12,15 @@
 
 ### UI Screenshots
 
-<img src="assets/images/Appicon.png" style="width:150px;" alt="App icon"/>
-<img src="assets/images/2.png" style="width:400px;" alt="العقد الذهبي"/>
-<img src="assets/images/3.png" style="width:400px;" alt="العقد الذهبي"/>
+<img src="assets/images/Appicon.png" style="width:100px;" alt="App icon"/>
+<img src="assets/images/2.png" style="width:800px;" alt="العقد الذهبي"/>
+<img src="assets/images/3.png" style="width:800px;" alt="العقد الذهبي"/>
 
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <img src="assets/images/4.jpeg" style="width: 150px;" alt="Home Screen"/>
-    <img src="assets/images/5.jpeg" style="width: 150px;" alt="Movie Screen"/>
-    <img src="assets/images/6.jpeg" style="width: 150px;" alt="Live Screen"/>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <img src="assets/images/4.jpeg" style="width: 200px;" alt="Home Screen"/>
+    <img src="assets/images/5.jpeg" style="width: 200px;" alt="Movie Screen"/>
+    <img src="assets/images/6.jpeg" style="width: 200px;" alt="Live Screen"/>
 </div>
 - العقد الذهبي
 مشغل  IPTV

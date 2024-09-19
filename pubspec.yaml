@@ -49,13 +49,14 @@ dependencies:
   flutter_svg: ^2.0.10+1
   video_player: ^2.9.1
   # flutter_cast_video: ^1.2.0
-  cloud_firestore: ^4.14.0
+  cloud_firestore: ^5.4.2
   http: ^1.2.2
-  firebase_core: ^2.24.2
+  firebase_core: ^3.5.0
   shared_preferences: ^2.3.2
   # video_cast: ^1.0.2
   cast: ^2.1.0
   chewie: ^1.8.3
+  flutter_email_sender: ^6.0.3
 
 
   

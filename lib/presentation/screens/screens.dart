@@ -69,3 +69,4 @@ part 'user/favourites.dart';
 part 'welcome.dart';
 part 'user/catch_up.dart';
 part 'homescreen.dart';
+ bool _istextFieldVisible = true;

@@ -8,21 +8,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
-  void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,199 +24,225 @@ class _SettingsScreenState extends State<SettingsScreen> {
               if (state is AuthSuccess) {
                 final userInfo = state.user;
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const AppBarSettings(),
-                    SizedBox(height: 5.h),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
+                return StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('host')
+                      .doc('server_config')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      // تحديث حالة showsocial من البيانات الجديدة في الفايربيز
+                      bool showsocial = snapshot.data!["showsocial"] ?? true;
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: kColorCardLight,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
-                              horizontal: 20,
-                            ),
+                          const AppBarSettings(),
+                          SizedBox(height: 5.h),
+                          Padding(
+                            padding: const EdgeInsets.all(15),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  dateNowWelcome(),
-                                  style: Get.textTheme.titleSmall,
-                                ),
-                                const SizedBox(height: 5),
-                                if (userInfo.userInfo!.expDate != null)
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                // عرض المعلومات الشخصية للمستخدم
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: kColorCardLight,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20,
+                                    horizontal: 20,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Expiration:",
-                                        style: Get.textTheme.titleSmall!
-                                            .copyWith(
-                                                color: kColorPrimary,
-                                                fontWeight: FontWeight.w900),
+                                        dateNowWelcome(),
+                                        style: Get.textTheme.titleSmall,
                                       ),
-                                      Text(
-                                        " ${expirationDate(userInfo.userInfo!.expDate)}",
-                                        style:
-                                            Get.textTheme.titleSmall!.copyWith(
-                                          color: Colors.red,
+                                      const SizedBox(height: 5),
+                                      if (userInfo.userInfo!.expDate != null)
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Expiration:",
+                                              style: Get.textTheme.titleSmall!
+                                                  .copyWith(
+                                                      color: kColorPrimary,
+                                                      fontWeight:
+                                                          FontWeight.w900),
+                                            ),
+                                            Text(
+                                              " ${expirationDate(userInfo.userInfo!.expDate)}",
+                                              style: Get.textTheme.titleSmall!
+                                                  .copyWith(
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
                                     ],
                                   ),
-                                // Text(
-                                //   "Expiration: ${expirationDate(userInfo.userInfo!.expDate)}",
-                                //   style: Get.textTheme.titleSmall!.copyWith(
-                                //     color: kColorHint,
-                                //   ),
-                                // ),
+                                ),
+                                const SizedBox(height: 15),
+                                // عرض بيانات الخادم والمستخدم
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: kColorCardLight,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20,
+                                    horizontal: 20,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "name: ${userInfo.userInfo!.username}",
+                                        style: Get.textTheme.titleSmall,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "password: ${userInfo.userInfo!.password}",
+                                        style: Get.textTheme.titleSmall,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      if (showsocial == false)
+                                        Text(
+                                          "Url: ${userInfo.serverInfo!.serverUrl}",
+                                          style: Get.textTheme.titleSmall,
+                                        ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: kColorCardLight,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
-                              horizontal: 20,
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(15),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "name: ${userInfo.userInfo!.username}",
-                                  style: Get.textTheme.titleSmall,
+                                // أزرار العمليات (تحديث البيانات، إضافة مستخدم جديد، تسجيل خروج)
+                                CardButtonWatchMovie(
+                                  isFocused: true,
+                                  title: "تحديث جميع البيانات",
+                                  onTap: () {
+                                    context
+                                        .read<LiveCatyBloc>()
+                                        .add(GetLiveCategories());
+                                    context
+                                        .read<MovieCatyBloc>()
+                                        .add(GetMovieCategories());
+                                    context
+                                        .read<SeriesCatyBloc>()
+                                        .add(GetSeriesCategories());
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WelcomeScreen()),
+                                    );
+                                  },
                                 ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  "password: ${userInfo.userInfo!.password}",
-                                  style: Get.textTheme.titleSmall,
+                                SizedBox(height: 5.h),
+                                CardButtonWatchMovie(
+                                  title: "إضافة مستخدم جديد",
+                                  onTap: () async {
+                                    context.read<AuthBloc>().add(AuthLogOut());
+                                    Get.offAllNamed("/");
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.clear();
+                                    await Get.deleteAll();
+                                    GetStorage().erase();
+                                  },
                                 ),
-                                // const SizedBox(height: 5),
-                                // Text(
-                                //   "Url: ${userInfo.serverInfo!.serverUrl}",
-                                //   style: Get.textTheme.titleSmall,
-                                // ),
+                                SizedBox(height: 5.h),
+                                CardButtonWatchMovie(
+                                  title: "تسجيل خروج",
+                                  onTap: () async {
+                                    context.read<AuthBloc>().add(AuthLogOut());
+                                    Get.offAllNamed("/");
+                                    Get.reload();
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.clear();
+                                    GetStorage().erase();
+                                    await Get.deleteAll();
+                                  },
+                                ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        children: [
-                          CardButtonWatchMovie(
-                            isFocused: true,
-                            title: "تحديث جميع البينات",
-                            onTap: () {
-                              context
-                                  .read<LiveCatyBloc>()
-                                  .add(GetLiveCategories());
-                              context
-                                  .read<MovieCatyBloc>()
-                                  .add(GetMovieCategories());
-                              context
-                                  .read<SeriesCatyBloc>()
-                                  .add(GetSeriesCategories());
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WelcomeScreen()),
-                              );
-                            },
-                          ),
-                          SizedBox(height: 5.h),
-                          CardButtonWatchMovie(
-                            title: "اضافة مستخدم جديد",
-                            onTap: ()async {
-                              context.read<AuthBloc>().add(AuthLogOut());
-                              Get.offAllNamed("/");
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.clear();
-                              await Get.deleteAll();
-                              GetStorage().erase();
-                            },
-                          ),
-                          SizedBox(height: 5.h),
-                          CardButtonWatchMovie(
-                            title: "تسجيل خروج",
-                            onTap: () async {
-                              context.read<AuthBloc>().add(AuthLogOut());
-                              Get.offAllNamed("/");
-                              Get.reload();
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.clear();
-                              GetStorage().erase();
-                                  await Get.deleteAll();
-
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      textDirection: TextDirection.rtl,
-                      "تابعنا او اطلب تجديد اشتراكك",
-                      style: TextStyle(
-                        color: kColorPrimary,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: SocialMediaRowWithText(),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'CreatedBy:',
-                          style: Get.textTheme.titleSmall!.copyWith(
-                            fontSize: 14.sp,
-                            color: Colors.white,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            _launchURL('https://wa.me/966568291178');
-                          },
-                          child: Text(
-                            ' @ Karim Abdelaziz',
-                            style: Get.textTheme.titleSmall!.copyWith(
-                              fontSize: 14.sp,
-                              color: Colors.blue,
+                          const SizedBox(height: 20),
+                          if (showsocial == true)
+                            Column(
+                              children: [
+                                const Text(
+                                  textDirection: TextDirection.rtl,
+                                  "تابعنا أو اطلب تجديد اشتراكك",
+                                  style: TextStyle(
+                                    color: kColorPrimary,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: SocialMediaRowWithText(),
+                                ),
+                                SizedBox(height: 30),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'CreatedBy:',
+                                      style: Get.textTheme.titleSmall!.copyWith(
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        final String whatsappUrl =
+                                            "https://wa.me/966568291178"; // استبدل برقم الواتس اب الخاص بك
+                                        try {
+                                          if (await canLaunch(whatsappUrl)) {
+                                            await launch(whatsappUrl);
+                                          } else {
+                                            throw 'Could not launch $whatsappUrl';
+                                          }
+                                        } catch (e) {
+                                          print('Error launching WhatsApp: $e');
+                                        }
+                                      },
+                                      child: Text(
+                                        ' @ Karim Abdelaziz',
+                                        style:
+                                            Get.textTheme.titleSmall!.copyWith(
+                                          fontSize: 14.sp,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  },
                 );
               }
               return const SizedBox();

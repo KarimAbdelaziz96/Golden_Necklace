@@ -156,7 +156,7 @@ if (_vlcPlayerController != null && _vlcPlayerController!.value.isInitialized) {
                           ),
                           if (selectedVideo != null)
                             Container(
-                              height: 250,
+                              height:  MediaQuery.of(context).size.height * (isTablet(context) ? 0.5 : 0.3),
                               child: Stack(
                                 children: [
                                   VlcPlayer(

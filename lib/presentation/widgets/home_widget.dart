@@ -45,7 +45,6 @@ class Reedmore extends StatelessWidget {
   }
 }
 
-
 class displaymovie extends StatefulWidget {
   final String catyId;
 
@@ -72,7 +71,7 @@ class _displaymovieState extends State<displaymovie>
           catyId: widget.catyId,
         ));
 
-      _scrollTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+    _scrollTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
       if (_scrollController.hasClients) {
         double maxScrollExtent = _scrollController.position.maxScrollExtent;
         double currentScrollOffset = _scrollController.offset;
@@ -101,7 +100,7 @@ class _displaymovieState extends State<displaymovie>
   Widget build(BuildContext context) {
     super.build(context);
     return SizedBox(
-      height: 250,
+  height:  MediaQuery.of(context).size.height * (isTablet(context) ? 0.5 : 0.3),
       child: BlocBuilder<ChannelsBlocmovie, ChannelsState>(
         builder: (context, state) {
           if (state is ChannelsLoading) {
@@ -205,7 +204,7 @@ class _displayseriesState extends State<displayseries>
   Widget build(BuildContext context) {
     super.build(context);
     return SizedBox(
-      height: 250,
+  height:  MediaQuery.of(context).size.height * (isTablet(context) ? 0.5 : 0.3),
       child: BlocBuilder<ChannelsBloseries, ChannelsState>(
         builder: (context, state) {
           if (state is ChannelsLoading) {
@@ -234,7 +233,7 @@ class _displayseriesState extends State<displayseries>
               itemCount:
                   keySearch.isEmpty ? channels.length : searchList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-               crossAxisCount: 1,
+                crossAxisCount: 1,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 1.6,
@@ -322,9 +321,9 @@ class _HomeImageAnimatedState extends State<HomeImageAnimated> {
   Widget build(BuildContext context) {
     final height = getSize(context).height / (widget.isTv ? 1 : 2);
     return SizedBox(
-      height: 250,
+  height:  MediaQuery.of(context).size.height * (isTablet(context) ? 0.2 : 0.3),
       child: Padding(
-        padding: const EdgeInsets.only(top:30),
+        padding: const EdgeInsets.only(top: 30),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -365,53 +364,58 @@ class _HomeImageAnimatedState extends State<HomeImageAnimated> {
                       width: 150,
                     ),
                     const SizedBox(height: 15),
-                    Container(
-                      width: 250,
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          border: Border.all(
-                            color: kColorPrimary,
-                            width: 0.5,
-                          ),
-                          color: Colors.black),
-                      child: BlocBuilder<AuthBloc, AuthState>(
-                        builder: (context, state) {
-                          if (state is AuthSuccess) {
-                            final userInfo = state.user.userInfo;
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  dateNowWelcome(),
-                                  style: Get.textTheme.titleSmall!
-                                      .copyWith(color: kColorPrimary),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Expiration:",
-                                      style: Get.textTheme.titleSmall!.copyWith(
-                                          color: kColorPrimary,
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                    Text(
-                                      " ${expirationDate(userInfo!.expDate)}",
-                                      style: Get.textTheme.titleSmall!.copyWith(
-                                        color: Colors.red,
+                    Expanded(
+                      child: Container(
+                        width:  MediaQuery.of(context).size.height * (isTablet(context) ? 0.5 : 0.3),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(15),
+                                topLeft: Radius.circular(15)),
+                            border: Border.all(
+                              color: kColorPrimary,
+                              width: 0.5,
+                            ),
+                            color: Colors.black),
+                        child: BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            if (state is AuthSuccess) {
+                              final userInfo = state.user.userInfo;
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    dateNowWelcome(),
+                                    style: Get.textTheme.titleSmall!
+                                        .copyWith(color: kColorPrimary),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Expiration:",
+                                        style: Get.textTheme.titleSmall!
+                                            .copyWith(
+                                                color: kColorPrimary,
+                                                fontWeight: FontWeight.w900),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          }
-        
-                          return const SizedBox();
-                        },
+                                      Text(
+                                        " ${expirationDate(userInfo!.expDate)}",
+                                        style: Get.textTheme.titleSmall!
+                                            .copyWith(
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }
+                      
+                            return const SizedBox();
+                          },
+                        ),
                       ),
                     )
                   ]),
@@ -481,7 +485,7 @@ class _HeaderImageAnimatedState extends State<HeaderImageAnimated> {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: SizedBox(
-        height: 200,
+        height:  MediaQuery.of(context).size.height * (isTablet(context) ? 0.2 : 0.3),
         child: Stack(
           alignment: Alignment.center,
           children: [

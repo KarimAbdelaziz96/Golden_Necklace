@@ -10,18 +10,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String keySearch = "";
 
+  @override
   void initState() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   Future<void> _refreshData() async {
@@ -41,17 +36,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(), // تمكين السحب
-
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding:
+                EdgeInsets.all(screenWidth * 0.03),    
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const HomeImageAnimated(),
+                SizedBox(height: screenHeight * 0.02), 
                 Reedmore("الافلام", () {
                   Navigator.push(
                     context,
@@ -59,9 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => MovieCategoriesScreen()),
                   );
                 }),
+                SizedBox(height: screenHeight * 0.01),
                 const displaymovie(
                   catyId: "",
                 ),
+                SizedBox(height: screenHeight * 0.02), 
                 Reedmore("مسلسلات", () {
                   Navigator.push(
                     context,
@@ -69,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => SeriesCategoriesScreen()),
                   );
                 }),
+                SizedBox(height: screenHeight * 0.01), 
                 const displayseries(
                   catyId: '',
                 ),

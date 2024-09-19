@@ -44,12 +44,15 @@ class _SplashScreenState extends State<SplashScreen> {
               context.read<SeriesCatyBloc>().add(GetSeriesCategories());
               goScreen(screenWelcome);
             } else if (state is AuthFailed) {
-              if (isTv(context)) {
-                goScreen(screenRegisterTv);
-              } else {
-                //goScreen(screenRegisterTv);
                 goScreen(screenIntro);
-              }
+
+              // if (isTv(context)) {
+              //   setState(() {
+              //     isTaplet = true;
+              //   });
+              // } else {
+              //   //goScreen(screenRegisterTv);
+              // }
             }
           },
           child: const LoadingWidgt(),

@@ -4,6 +4,12 @@ const String kAppName = "العقد الذهبي";
 
 //TODO: SHow Ads ( true / false )
 const bool showAds = false;
+//  bool isTaplet = false;
+
+bool isTablet(BuildContext context) {
+  double deviceWidth = MediaQuery.of(context).size.shortestSide;
+  return deviceWidth > 600; // إذا كان عرض الجهاز أكبر من 600 بكسل، يعتبر تابلت
+}
 
 const String kIconLive = "assets/images/live-stream.png";
 const String kIconSeries = "assets/images/clapperboard.png";
@@ -17,7 +23,6 @@ const String IconSeries = "assets/icons/series.svg";
 const String IconLive = "assets/icons/livestream.svg";
 const String IconHome = "assets/icons/home.svg";
 const String IconSetting = "assets/icons/setting.svg";
-
 
 
 

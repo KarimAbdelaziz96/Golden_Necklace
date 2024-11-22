@@ -70,9 +70,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _Urlfirebase = document.get("url") ?? "";
         _istextFieldVisible = document["textFieldVisible"] as bool ?? true;
       });
-      print("======= URL FIREBASE======$_Urlfirebase=======");
+      // print("======= URL FIREBASE======$_Urlfirebase=======");
     } catch (e) {
-      print('Error fetching data from Firebase: $e');
+      // print('Error fetching data from Firebase: $e');
     }
   }
 

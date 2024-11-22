@@ -2,14 +2,19 @@
 الرمز : 23149326723951
 http://max-pro.vip:2052
 
-
-
-
 Host: http://speed.manef2025.xyz:80
 Username: 30675102406586
 Password: 17810022123878
 
 Host: http://hplayer.info:8080
+username
+"32806094974699"
+password
+"296892943251"
+
+
+
+
 Username: 32806094974699
 Password: 296892943251
 
@@ -18,7 +23,6 @@ Username: 25205113426213
 Password: 38688723921866
  -->
 
-25205113426213
 
 
 
@@ -29,18 +33,5 @@ http://ktv.im:8080
 
 PASS  : 65329871
 
-<!-- 
-  <key>FirebaseAppDelegateProxyEnabled</key>
-    <true/> -->
-<!-- 
-target 'Runner' do
-  use_frameworks!
-  use_modular_headers!
-  # pod 'Firebase/Core' -->
 
-<!-- appdelegate -->
-<!-- import FirebaseCore -->
-
-
-                      <!-- FirebaseApp.configure() -->
 

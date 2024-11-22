@@ -124,31 +124,33 @@ class _MovieContentState extends State<MovieContent> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        if (movie.info!.youtubeTrailer !=
-                                                null &&
-                                            movie.info!.youtubeTrailer!
-                                                .isNotEmpty)
-                                          CardButtonWatchMovie(
-                                            title: "watch trailer",
-                                            onTap: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (builder) =>
-                                                      DialogTrailerYoutube(
-                                                          thumb: movie
-                                                                  .info!
-                                                                  .backdropPath!
-                                                                  .isNotEmpty
-                                                              ? movie
-                                                                  .info!
-                                                                  .backdropPath!
-                                                                  .first
-                                                              : null,
-                                                          trailer: movie.info!
-                                                                  .youtubeTrailer ??
-                                                              ""));
-                                            },
-                                          ),
+                                        // if (movie.info!.youtubeTrailer !=
+                                        //         null &&
+                                        //     movie.info!.youtubeTrailer!
+                                        //         .isNotEmpty)
+                                        //
+                                        //   CardButtonWatchMovie(
+                                        //     title: "watch trailer",
+                                        //     onTap: () {
+                                        //       showDialog(
+                                        //           context: context,
+                                        //           builder: (builder) =>
+                                        //               DialogTrailerYoutube(
+                                        //                   thumb: movie
+                                        //                           .info!
+                                        //                           .backdropPath!
+                                        //                           .isNotEmpty
+                                        //                       ? movie
+                                        //                           .info!
+                                        //                           .backdropPath!
+                                        //                           .first
+                                        //                       : null,
+                                        //                   trailer: movie.info!
+                                        //                           .youtubeTrailer ??
+                                        //                       ""));
+                                        //     },
+                                        //   ),
+
                                         SizedBox(width: 3.w),
                                         CardButtonWatchMovie(
                                           title: "watch Now",

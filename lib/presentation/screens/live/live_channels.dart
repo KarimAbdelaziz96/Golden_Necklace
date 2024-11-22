@@ -20,7 +20,7 @@ class _ListChannelsScreen extends State<LiveChannelsScreen> {
   String keySearch = "";
   final FocusNode _remoteFocus = FocusNode();
   final String pageTitle = "Live Screen";
-  bool isBuffering = true; // متغير لتحديد حالة التحميل (buffering)
+  bool isBuffering = true; 
 
   @override
   void initState() {
@@ -43,27 +43,26 @@ class _ListChannelsScreen extends State<LiveChannelsScreen> {
       autoPlay: true,
       options: VlcPlayerOptions(
         extras: [
-          '--network-caching=1500', // تعيين حجم التخزين المؤقت للشبكة
-          '--file-caching=1500',    // تعيين حجم التخزين المؤقت للملفات
-          '--live-caching=3000',    // تعيين حجم التخزين المؤقت للبث المباشر
+          '--network-caching=1500',
+          '--file-caching=1500',   
+          '--live-caching=3000',  
         ],
       ),
       onInit: () {
         setState(() {
-          isBuffering = true; // تبدأ الحالة في التحميل
+          isBuffering = true;
         });
       },
     );
 
-    // إضافة مستمع للتحقق من حالة التحميل
     _vlcPlayerController!.addListener(() {
       if (_vlcPlayerController!.value.isBuffering) {
         setState(() {
-          isBuffering = true; // الفيديو في حالة تحميل
+          isBuffering = true; 
         });
       } else {
         setState(() {
-          isBuffering = false; // تم الانتهاء من التحميل
+          isBuffering = false;
         });
       }
     });
@@ -341,7 +340,7 @@ if (_vlcPlayerController != null && _vlcPlayerController!.value.isInitialized) {
                                                       );
                                                     }
 
-                                                    return Center(
+                                                    return  const  Center(
                                                       child: Text(
                                                           "فشل في تحميل البيانات..."),
                                                     );

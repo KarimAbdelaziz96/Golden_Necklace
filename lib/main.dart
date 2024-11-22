@@ -60,9 +60,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
     ]);
     super.initState();
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
 
-    // ]);
   }
 
   @override
@@ -130,10 +128,6 @@ class _MyAppState extends State<MyApp> {
                     page: () => const LiveCategoriesScreen()),
                 GetPage(
                     name: screenRegister, page: () => const RegisterScreen()),
-                // GetPage(
-                //     name: screenRegisterTv, page: () => const RegisterUserTv()),
-                // GetPage(
-                //     name: screenRegisterTv, page: () => const RegisterUserTv()),
                 GetPage(
                     name: screenMovieCategories,
                     page: () => const MovieCategoriesScreen()),

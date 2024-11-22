@@ -33,8 +33,6 @@ class _FullVideoScreenState extends State<FullVideoScreen> {
 
   @override
   void initState() {
- 
-
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -42,41 +40,33 @@ class _FullVideoScreenState extends State<FullVideoScreen> {
     ]);
     Wakelock.enable();
 
-    _videoPlayerController = VlcPlayerController.network(widget.link,
-        hwAcc: HwAcc.auto,
-        autoPlay: true,
-        autoInitialize: true,
-        options: VlcPlayerOptions(
-            extras: [
-              '--no-plugins-cache',
-              '--no-skip-frames',
-            ],
-            audio: VlcAudioOptions([
-              '--audio-sync',
-              '--volume=100', // تعيين مستوى الصوت الافتراضي إلى 100%
-              '--no-metadata-cache', // إيقاف ذاكرة التخزين المؤقت للبيانات الوصفية
-              '--audio-filter=abuffer',
-            ]),
-            http: VlcHttpOptions([
-              '--http-caching=1000', // تعيين حجم التخزين المؤقت HTTP إلى 1000 ميلي ثانية
-              '--http-reconnect', // تمكين إعادة الاتصال عبر HTTP
-              '--http-timeout=5000', // تعيين مهلة الاتصال HTTP إلى 5000 ميلي ثانية
-              '--http-user-agent=YourAppName/1.0', // تعيين وكيل المستخدم
-            ]),
-            video: VlcVideoOptions([
-              '--video-x=0', // تعيين موقع الفيديو على المحور X
-              '--video-y=0', // تعيين موقع الفيديو على المحور Y
-              '--video-scale=1.0', // تعيين مقياس العرض إلى 1.0
-              '--no-video-deco', // تعطيل زخرفة الفيديو (مفيد لتحسين الأداء)
-              '--no-video-filter', // تعطيل الفلاتر لتقليل المعالجة
-            ]),
-            sout: VlcStreamOutputOptions([
-              '--sout=#rtp{sdp=rtsp://@:8554/stream}', // إعداد البث عبر RTP
-              '--sout-all', // تفعيل بث جميع المسارات
-              '--sout-video-filter', // تطبيق فلتر الفيديو للبث
-              '--sout-audio-filter', // تطبيق فلتر الصوت للبث
-              '--sout-mux-caching=3000', // تعيين حجم التخزين المؤقت لمزج البث إلى 3000 ميلي ثانية
-            ])));
+    try{
+      _videoPlayerController = VlcPlayerController.network(widget.link,
+          hwAcc: HwAcc.full,
+          autoPlay: true,
+          autoInitialize: true,
+          options: VlcPlayerOptions()
+      );
+    }catch(e){
+      print('Error initializing VLC player: $e');
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('خطأ'),
+          content: Text('حدث خطأ أثناء تشغيل الفيديو. يرجى المحاولة مرة أخرى.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child:  const Text('موافق'),
+            ),
+          ],
+        ),
+      );
+    }
+
+
+
 
     _videoPlayerController.addListener(listener);
     _settingPage();
@@ -163,7 +153,9 @@ class _FullVideoScreenState extends State<FullVideoScreen> {
       DeviceOrientation.portraitUp,
     ]);
     super.dispose();
-    await _videoPlayerController.stopRendererScanning();
+    if (_videoPlayerController.value.isInitialized) {
+      await _videoPlayerController.stopRendererScanning();
+    }
     await _videoPlayerController.dispose();
     timer.cancel();
   }
@@ -351,8 +343,8 @@ class _FullVideoScreenState extends State<FullVideoScreen> {
                       initialValue: _currentVolume,
                       onFinish: (value) async {
                         try {
-                       PerfectVolumeControl.hideUI = true;
-                        await PerfectVolumeControl.setVolume(value);
+                          PerfectVolumeControl.hideUI = true;
+                          await PerfectVolumeControl.setVolume(value);
                           setState(() {
                             _currentBright = value;
                           });
@@ -439,20 +431,16 @@ class _FullVideoScreenState extends State<FullVideoScreen> {
                       height: 40.h,
                       width: 30,
                       onFinish: (value) async {
-                        try{
-
-       await ScreenBrightness().setScreenBrightness(value);
-                        setState(() {
-                          _currentBright = value;
-                        });
-
-                        }catch(e){
+                        try {
+                          await ScreenBrightness().setScreenBrightness(value);
+                          setState(() {
+                            _currentBright = value;
+                          });
+                        } catch (e) {
                           print('Error setting brightness: $e');
-
                         }
-                 
                       },
-                      child: Icon(
+                      child: const Icon(
                         FontAwesomeIcons.solidSun,
                         color: Colors.black,
                         size: 13,
